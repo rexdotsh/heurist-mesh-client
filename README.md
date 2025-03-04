@@ -94,8 +94,8 @@ while True:
 
 The client handles two main types of requests:
 
-1. Natural Language Queries
-2. Tool-based Requests
+1. **Natural Language Queries**: Requires `agent_id` and `query`
+2. **Tool-based Requests**: Requires `agent_id` and `tool` (some tools may need `tool_arguments`)
 
 #### Natural Language Example
 
@@ -120,15 +120,16 @@ response = client.sync_request(
 
 ### Parameters
 
-- `agent_id` (String, required): The identifier for the Heurist agent you want to interact with.
+| Parameter        | Type    | Required | Description                                                                       |
+| ---------------- | ------- | -------- | --------------------------------------------------------------------------------- |
+| `agent_id`       | String  | Yes      | The identifier for the Heurist agent you want to interact with                    |
+| `query`          | String  | No†      | Natural language query for the agent (\*Required if not using tool-based request) |
+| `tool`           | String  | No†      | Name of the specific tool to invoke (\*Required for tool-based requests)          |
+| `tool_arguments` | Dict    | No‡      | Arguments for the tool being invoked (\*Required for tool-based requests)         |
+| `raw_data_only`  | Boolean | No       | Whether to return raw data without natural language processing (Default: `false`) |
 
-- `query` (String, optional): Natural language query for the agent. Required if not using tool-based request.
-
-- `tool` (String, optional): Name of the specific tool to invoke. Required for tool-based requests.
-
-- `tool_arguments` (Dict, optional): Arguments for the tool being invoked. Required for tool-based requests.
-
-- `raw_data_only` (Boolean, optional): Whether to return raw data without natural language processing. Default is False.
+† You must provide either `query` OR `tool`, but not both  
+‡ Only required for tools that accept arguments. Check the agent's documentation for tool-specific requirements
 
 ### Response Structure
 
@@ -167,19 +168,19 @@ The API returns responses in JSON format containing:
 
 The Mesh API provides access to a growing ecosystem of specialized AI agents:
 
-| Agent                        | Description                            |
-| ---------------------------- | -------------------------------------- |
-| AlloraPricePredictionAgent   | Price prediction for crypto assets     |
-| BitquerySolanaTokenInfoAgent | Solana token information and analytics |
-| CoinGeckoTokenInfoAgent      | Comprehensive cryptocurrency data      |
-| DeepResearchAgent            | In-depth research and analysis         |
-| DexScreenerTokenInfoAgent    | DEX trading data and metrics           |
-| DuckDuckGoSearchAgent        | Web search capabilities                |
-| ElfaTwitterIntelligenceAgent | Twitter data intelligence              |
-| FirecrawlSearchAgent         | Specialized search functionality       |
-| TokenContractSecurityAgent   | Smart contract security analysis       |
-| MasaTwitterSearchAgent       | Twitter search and monitoring          |
-| PumpFunTokenAgent            | Token pump detection and analysis      |
-| ZkIgniteAnalystAgent         | ZK technology analysis                 |
+| Agent                        | Description                                            |
+| ---------------------------- | ------------------------------------------------------ |
+| AlloraPricePredictionAgent   | ETH/BTC price predictions with confidence intervals    |
+| BitquerySolanaTokenInfoAgent | Solana token trading data and trending tokens          |
+| CoinGeckoTokenInfoAgent      | Token information, market data, and trending coins     |
+| DeepResearchAgent            | Recursive exploration and comprehensive topic research |
+| DexScreenerTokenInfoAgent    | Real-time DEX trading data across multiple chains      |
+| DuckDuckGoSearchAgent        | Web search with content relevance assessment           |
+| ElfaTwitterIntelligenceAgent | Twitter mentions and trends for crypto tokens          |
+| FirecrawlSearchAgent         | Advanced search with intelligent query analysis        |
+| TokenContractSecurityAgent   | Security analysis of blockchain token contracts        |
+| MasaTwitterSearchAgent       | Twitter search and result analysis                     |
+| PumpFunTokenAgent            | Solana token analysis with market cap and holder data  |
+| ZkIgniteAnalystAgent         | zkSync Era DeFi analysis with yield and TVL data       |
 
 For a complete and up-to-date list of available agents and their capabilities, visit the [Mesh Agents Metadata Endpoint](https://mesh.heurist.ai/mesh_agents_metadata.json).
