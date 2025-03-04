@@ -1,6 +1,4 @@
----
-title: "Heurist Mesh API"
----
+# Heurist Mesh API
 
 ### Overview
 
@@ -163,19 +161,6 @@ The API returns responses in JSON format containing:
         "success": true  # or false
     }
 }
-```
-
-### Error Handling
-
-The client includes built-in error handling for common scenarios:
-
-```python
-try:
-    response = client.sync_request(...)
-except ValueError:
-    # handle invalid parameters
-except httpx.HTTPError:
-    # handle http-related errors
 ```
 
 ### Available Agents
